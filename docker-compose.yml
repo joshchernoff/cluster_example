@@ -1,0 +1,48 @@
+version: "3.7"
+services:
+  app1:
+    build: .
+    environment:
+      - DATABASE_URL="ecto://postgres:@localhost/cluster_example_dev"
+      - ERLANG_COOKIE="asdfasdfasdfasdf"
+      - DB_HOST=db
+      - RELEASE_NODE=app@app1 
+      # - COOKIE=$$ERLANG_COOKIE # I Don't know what I'm doing
+
+    depends_on:
+      - db
+    volumes:
+      - $PWD:/app
+    ports:
+      - "127.0.0.1:4001:4001"
+
+  app2:
+    build: .
+    environment:
+      - DATABASE_URL="ecto://postgres:@localhost/cluster_example_dev"
+      - ERLANG_COOKIE="asdfasdfasdfasdf"
+      - DB_HOST=db
+      - RELEASE_NODE=app@app2
+      # - COOKIE=$$ERLANG_COOKIE # I Don't know what I'm doing
+    volumes:
+      - $PWD:/app
+    depends_on:
+      - db
+    ports:
+      - "127.0.0.1:4002:4002"
+  db:
+    image: "postgres:11"
+    command: postgres -c shared_preload_libraries=pg_stat_statements -c pg_stat_statements.max=10000 -c pg_stat_statements.track=all
+    environment:
+      POSTGRES_DB: "cluster_example_dev"
+      POSTGRES_USER: "foobar"
+      POSTGRES_PASSWORD: "foobar"
+      POSTGRES_HOST_AUTH_METHOD: "md5"
+    container_name: "cluster_example_dev_db"
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - data:/var/lib/postgresql/data
+volumes:
+  data:
+    driver: local
