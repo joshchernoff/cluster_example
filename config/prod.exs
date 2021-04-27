@@ -14,8 +14,8 @@ config :cluster_example, ClusterExampleWeb.Endpoint,
   https: [
     port: String.to_integer(System.get_env("PORT") || "4001"),
     cipher_suite: :strong,
-    keyfile: "priv/cert/selfsigned_key.pem",
-    certfile: "priv/cert/selfsigned.pem",
+    keyfile: "/app/cert/selfsigned_key.pem",
+    certfile: "/app/cert/selfsigned.pem",
     transport_options: [socket_opts: [:inet6]]
   ],
   cache_static_manifest: "priv/static/cache_manifest.json",
@@ -23,6 +23,25 @@ config :cluster_example, ClusterExampleWeb.Endpoint,
 
 # Do not print debug messages in production
 config :logger, level: :info
+
+# config :libcluster,
+#   topologies: [
+#     cluster_example: [
+#       # The selected clustering strategy. Required.
+#       strategy: Cluster.Strategy.Epmd,
+#       # Configuration for the provided strategy. Optional.
+#       config: [hosts: [:"a@0.0.0.0", :"b@0.0.0.0"]],
+#       # The function to use for connecting nodes. The node
+#       # name will be appended to the argument list. Optional
+#       # connect: {:net_kernel, :connect_node, []},
+#       # The function to use for disconnecting nodes. The node
+#       # name will be appended to the argument list. Optional
+#       # disconnect: {:erlang, :disconnect_node, []},
+#       # The function to use for listing nodes.
+#       # This function must return a list of node names. Optional
+#       # list_nodes: {:erlang, :nodes, [:connected]},
+#     ]
+#   ]
 
 # ## SSL Support
 #

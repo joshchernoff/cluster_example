@@ -6,6 +6,18 @@ defmodule ClusterExample.Application do
   use Application
 
   def start(_type, _args) do
+    topologies = [
+      cluster_example: [
+        strategy: Cluster.Strategy.Epmd,
+        config: [
+          hosts: [
+            :"app@foo.dev",
+            :"app@bar.dev"
+          ]
+        ]
+      ]
+    ]
+
     children = [
       # Start the Ecto repository
       ClusterExample.Repo,
@@ -14,9 +26,10 @@ defmodule ClusterExample.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: ClusterExample.PubSub},
       # Start the Endpoint (http/https)
-      ClusterExampleWeb.Endpoint
+      ClusterExampleWeb.Endpoint,
       # Start a worker by calling: ClusterExample.Worker.start_link(arg)
       # {ClusterExample.Worker, arg}
+      {Cluster.Supervisor, [topologies, [name: ClusterExample.ClusterSupervisor]]}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

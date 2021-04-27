@@ -17,7 +17,12 @@ defmodule ClusterExampleWeb.Router do
   scope "/", ClusterExampleWeb do
     pipe_through :browser
 
-    live "/", PageLive, :index
+    live "/", PostLive.Index, :index
+    live "/new", PostLive.Index, :new
+    live "/:id/edit", PostLive.Index, :edit
+
+    live "/:id", PostLive.Show, :show
+    live "/:id/show/edit", PostLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.
