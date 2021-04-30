@@ -11,6 +11,8 @@ From there we use libcluster and a very basic epmd Strategy with the two known n
 
 To start your Phoenix server:
 
+  * Get your stuff `mix deps.get`
+  * Build your certs `mix phx.gen.cert` ( gonna have to add and trust the cert fyi )
   * Build containers `docker compose build`
   * Spin up `docker compose up`
 
