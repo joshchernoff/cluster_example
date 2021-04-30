@@ -1,6 +1,6 @@
 # ClusterExample
 
-This is a basic exmaple of using Docker to build mix releases and spin nodes. 
+This is a basic example of using Docker to build mix releases and spin nodes. 
 
 In this case its two known nodes app@foo.dev and app@bar.dev. 
 
