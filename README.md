@@ -1,20 +1,21 @@
 # ClusterExample
 
+This is a basic exmaple of using Docker to build mix releases and spin nodes. 
+
+In this case its two known nodes app@foo.dev and app@bar.dev. 
+
+Using the ERL_DIST_PORT env we bypass epmd and specify which port erlang should try to cluster on.
+
+From there we use libcluster and a very basic epmd Strategy with the two known nodes hard coded in the hosts. 
+
+
 To start your Phoenix server:
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.setup`
-  * Install Node.js dependencies with `npm install` inside the `assets` directory
-  * Start Phoenix endpoint with `mix phx.server`
+  * Build containers `docker compose build`
+  * Spin up `docker compose up`
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+Now you can visit [`localhost:4001`](http://localhost:4001) for app@foo.dev and [`localhost:4002`](http://localhost:4002) for app@bar.dev
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+LiveView should be running a very basic Blog post index. 
 
-## Learn more
-
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+Currently its set to subscribe and handle new blog post submitions
