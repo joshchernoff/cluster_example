@@ -14,8 +14,8 @@ config :cluster_example, ClusterExampleWeb.Endpoint,
   https: [
     port: String.to_integer(System.get_env("PORT") || "4001"),
     cipher_suite: :strong,
-    keyfile: "/app/cert/selfsigned_key.pem",
-    certfile: "/app/cert/selfsigned.pem",
+    keyfile: "priv/cert/selfsigned_key.pem",
+    certfile: "priv/cert/selfsigned.pem",
     transport_options: [socket_opts: [:inet6]]
   ],
   cache_static_manifest: "priv/static/cache_manifest.json",

@@ -46,7 +46,6 @@ WORKDIR /app
 RUN chown nobody:nobody /app
 
 COPY --from=build --chown=nobody:nobody /app/_build/prod/rel/cluster_example /app
-COPY --from=build --chown=nobody:nobody /app/priv/cert /app
 
 USER nobody:nobody
 
